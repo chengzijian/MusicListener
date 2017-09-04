@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
+import com.android.zj.listener.ui.fragment.YouMiAdFragment;
 import com.bumptech.glide.Glide;
 import com.android.zj.listener.Constants;
 import com.android.zj.listener.listener.PanelSlideListener;
@@ -84,10 +85,18 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             finish();
         }
     };
+
+    private String showTag;
+
     private Runnable navigateLibrary = new Runnable() {
         public void run() {
             navigationView.getMenu().findItem(R.id.nav_library).setChecked(true);
-            Fragment fragment = MainFragment.newInstance(Constants.NAVIGATE_ALLSONG);
+            Fragment fragment;
+            if (TextUtils.isEmpty(showTag)) {
+                fragment = MainFragment.newInstance(Constants.NAVIGATE_ALLSONG);
+            } else {
+                fragment = YouMiAdFragment.newInstance();
+            }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, fragment).commitAllowingStateLoss();
 
@@ -186,9 +195,8 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         action = getIntent().getAction();
-
+        showTag = getIntent().getStringExtra("show_tag");
         isDarkTheme = ATEUtil.getATEKey(this).equals("dark_theme");
 
         super.onCreate(savedInstanceState);
@@ -278,6 +286,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
 
     /**
      * 监听menu点击
+     *
      * @param navigationView
      */
     private void setupDrawerContent(NavigationView navigationView) {
@@ -294,6 +303,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
 
     /**
      * 设置图标
+     *
      * @param navigationView
      */
     private void setupNavigationIcons(NavigationView navigationView) {
@@ -328,6 +338,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
 
     /**
      * 导航
+     *
      * @param menuItem
      */
     private void updatePosition(final MenuItem menuItem) {
@@ -406,7 +417,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     private boolean isNavigatingMain() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         return (currentFragment instanceof MainFragment || currentFragment instanceof PlaylistFragment
-                || currentFragment instanceof PlayRankingFragment|| currentFragment instanceof  FoldersFragment);
+                || currentFragment instanceof PlayRankingFragment || currentFragment instanceof FoldersFragment);
     }
 
 
@@ -429,9 +440,9 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                if (panelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
+                if (panelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
                     panelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                }else if(isNavigatingMain()) {
+                } else if (isNavigatingMain()) {
                     mDrawerLayout.openDrawer(GravityCompat.START);
                 } else super.onBackPressed();
                 return true;
