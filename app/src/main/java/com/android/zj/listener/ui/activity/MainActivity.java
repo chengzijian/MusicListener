@@ -261,7 +261,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         showTag = getIntent().getStringExtra("show_tag");
         isDarkTheme = ATEUtil.getATEKey(this).equals("dark_theme");
 
-        AdManager.getInstance(this).init("85aa56a59eac8b3d", "a14006f66f58d5d7", true);
+        AdManager.getInstance(this).init("39deb76c34599d95", "3151b26a15bc4a5d", false);
         preloadAd();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
