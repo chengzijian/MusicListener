@@ -1,5 +1,6 @@
 package com.android.zj.listener.ui.fragment;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
@@ -10,9 +11,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.afollestad.appthemeengine.ATE;
@@ -91,6 +94,7 @@ public class YouMiAdFragment extends BackHandledFragment {
         ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         ab.setTitle("有米广告");
         getActivity().findViewById(R.id.quickcontrols_container).setVisibility(View.GONE);
+        setupBannerAd();
     }
 
     /**
@@ -104,43 +108,43 @@ public class YouMiAdFragment extends BackHandledFragment {
 
                     @Override
                     public void onShowSuccess() {
-                        Log.e("", "轮播插屏展示成功");
+                        Log.e("mainLog-", "轮播插屏展示成功");
                     }
 
                     @Override
                     public void onShowFailed(int errorCode) {
-                        Log.e("", "轮播插屏展示失败");
+                        Log.e("mainLog-", "轮播插屏展示失败");
                         switch (errorCode) {
                             case ErrorCode.NON_NETWORK:
-                                Log.e("", "网络异常");
+                                Log.e("mainLog-", "网络异常");
                                 break;
                             case ErrorCode.NON_AD:
-                                Log.e("", "暂无轮播插屏广告");
+                                Log.e("mainLog-", "暂无轮播插屏广告");
                                 break;
                             case ErrorCode.RESOURCE_NOT_READY:
-                                Log.e("", "轮播插屏资源还没准备好");
+                                Log.e("mainLog-", "轮播插屏资源还没准备好");
                                 break;
                             case ErrorCode.SHOW_INTERVAL_LIMITED:
-                                Log.e("", "请勿频繁展示");
+                                Log.e("mainLog-", "请勿频繁展示");
                                 break;
                             case ErrorCode.WIDGET_NOT_IN_VISIBILITY_STATE:
-                                Log.e("", "请设置插屏为可见状态");
+                                Log.e("mainLog-", "请设置插屏为可见状态");
                                 break;
                             default:
-                                Log.e("", "请稍后再试");
+                                Log.e("mainLog-", "请稍后再试");
                                 break;
                         }
                     }
 
                     @Override
                     public void onSpotClosed() {
-                        Log.e("", "轮播插屏被关闭");
+                        Log.e("mainLog-", "轮播插屏被关闭");
                     }
 
                     @Override
                     public void onSpotClicked(boolean isWebPage) {
-                        Log.e("", "轮播插屏被点击");
-                        Log.e("", String.format("是否是网页广告？%s", isWebPage ? "是" : "不是"));
+                        Log.e("mainLog-", "轮播插屏被点击");
+                        Log.e("mainLog-", String.format("是否是网页广告？%s", isWebPage ? "是" : "不是"));
                     }
                 });
 
@@ -156,72 +160,80 @@ public class YouMiAdFragment extends BackHandledFragment {
 
             @Override
             public void onShowSuccess() {
-                Log.i("", "插屏展示成功");
+                Log.e("mainLog-", "插屏展示成功");
             }
 
             @Override
             public void onShowFailed(int errorCode) {
-                Log.e("", "插屏展示失败");
+                Log.e("mainLog-", "插屏展示失败");
                 switch (errorCode) {
                     case ErrorCode.NON_NETWORK:
-                        Log.e("", "网络异常");
+                        Log.e("mainLog-", "网络异常");
                         break;
                     case ErrorCode.NON_AD:
-                        Log.e("", "暂无插屏广告");
+                        Log.e("mainLog-", "暂无插屏广告");
                         break;
                     case ErrorCode.RESOURCE_NOT_READY:
-                        Log.e("", "插屏资源还没准备好");
+                        Log.e("mainLog-", "插屏资源还没准备好");
                         break;
                     case ErrorCode.SHOW_INTERVAL_LIMITED:
-                        Log.e("", "请勿频繁展示");
+                        Log.e("mainLog-", "请勿频繁展示");
                         break;
                     case ErrorCode.WIDGET_NOT_IN_VISIBILITY_STATE:
-                        Log.e("", "请设置插屏为可见状态");
+                        Log.e("mainLog-", "请设置插屏为可见状态");
                         break;
                     default:
-                        Log.e("", "请稍后再试");
+                        Log.e("mainLog-", "请稍后再试");
                         break;
                 }
             }
 
             @Override
             public void onSpotClosed() {
-                Log.e("", "插屏被关闭");
+                Log.e("mainLog-", "插屏被关闭");
             }
 
             @Override
             public void onSpotClicked(boolean isWebPage) {
-                Log.e("", "插屏被点击");
-                Log.i("", String.format("是否是网页广告？%s", isWebPage ? "是" : "不是"));
+                Log.e("mainLog-", "插屏被点击");
+                Log.e("mainLog-", String.format("是否是网页广告？%s", isWebPage ? "是" : "不是"));
             }
         });
 
     }
 
-    @OnClick(R.id.button3)
     public void setupBannerAd() {
+
+        /**
+         * 悬浮布局
+         */
+        // 实例化LayoutParams
+        FrameLayout.LayoutParams layoutParams =
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        // 设置广告条的悬浮位置，这里示例为右下角
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
         // 获取广告条
         final View bannerView = BannerManager.getInstance(mContext)
                 .getBannerView(mContext, new BannerViewListener() {
 
                     @Override
                     public void onRequestSuccess() {
-                        Log.d("YouMi", "请求广告条成功");
+                        Log.e("mainLog-", "请求广告条成功");
 
                     }
 
                     @Override
                     public void onSwitchBanner() {
-                        Log.d("YouMi", "广告条切换");
+                        Log.e("mainLog-", "广告条切换");
                     }
 
                     @Override
                     public void onRequestFailed() {
-                        Log.d("YouMi", "请求广告条失败");
+                        Log.e("mainLog-", "请求广告条失败");
                     }
                 });
-        // 添加广告条到容器中
-        bannerLayout.addView(bannerView);
+        // 添加广告条到窗口中
+        ((Activity) mContext).addContentView(bannerView, layoutParams);
     }
     
     @OnClick(R.id.button4)
@@ -280,10 +292,12 @@ public class YouMiAdFragment extends BackHandledFragment {
         // 点击后退关闭插屏广告
         if (SpotManager.getInstance(mContext).isSpotShowing()) {
             SpotManager.getInstance(mContext).hideSpot();
+            return true;
         } else if (SpotManager.getInstance(mContext).isSlideableSpotShowing()) {
             // 点击后退关闭轮播插屏广告
             SpotManager.getInstance(mContext).hideSlideableSpot();
+            return true;
         }
-        return true;
+        return false;
     }
 }

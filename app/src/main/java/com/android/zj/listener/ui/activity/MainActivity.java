@@ -531,8 +531,6 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
                 getSupportFragmentManager().popBackStack();
             }
         }
-
-        super.onBackPressed();
     }
 
     @Override
