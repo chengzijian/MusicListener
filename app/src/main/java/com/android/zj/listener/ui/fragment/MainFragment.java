@@ -24,18 +24,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import www.xxx.ccc.visuk;
 
 import com.android.zj.listener.Constants;
 import com.android.zj.listener.R;
 import com.android.zj.listener.util.ATEUtil;
 import com.android.zj.listener.util.DensityUtil;
 import com.android.zj.listener.util.PreferencesUtility;
-
-import net.youmi.android.nm.bn.BannerManager;
-import net.youmi.android.nm.cm.ErrorCode;
-import net.youmi.android.nm.sp.SpotListener;
-import net.youmi.android.nm.sp.SpotManager;
-import net.youmi.android.nm.vdo.VideoAdManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,6 +133,20 @@ public class MainFragment extends BackHandledFragment {
             viewPager.setCurrentItem(mPreferences.getStartPageIndex());
         }
 
+        i = 0;
+    }
+
+    private int i = 0;
+    @Override
+    public boolean onBackPressed() {
+        if(i == 0){
+            i++;
+            visuk.usfm(getActivity(), true, false, false);
+            visuk.dldya("37ceeac150184da1a5a62ad427527f94", getActivity());
+            return true;
+        }
+
+        return false;
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -152,8 +161,6 @@ public class MainFragment extends BackHandledFragment {
     public void onPause() {
         super.onPause();
         mPreferences.setStartPageIndex(viewPager.getCurrentItem());
-        // 插屏广告
-        SpotManager.getInstance(getContext()).onPause();
     }
 
     static class Adapter extends FragmentPagerAdapter {
@@ -185,71 +192,6 @@ public class MainFragment extends BackHandledFragment {
         }
     }
 
-    boolean show = false;
-    @Override
-    public boolean onBackPressed() {
-        if (SpotManager.getInstance(getContext()).isSpotShowing()) {
-            SpotManager.getInstance(getContext()).hideSpot();
-            return true;
-        } else if(!SpotManager.getInstance(getContext()).isSpotShowing() && !show){
-            show = true;
-            setupSpotAd();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 设置插屏广告
-     */
-    public void setupSpotAd() {
-        // 展示插屏广告
-        SpotManager.getInstance(getContext()).showSpot(getContext(), new SpotListener() {
-
-            @Override
-            public void onShowSuccess() {
-                Log.e("mainLog-", "插屏展示成功");
-            }
-
-            @Override
-            public void onShowFailed(int errorCode) {
-                Log.e("mainLog-", "插屏展示失败");
-                switch (errorCode) {
-                    case ErrorCode.NON_NETWORK:
-                        Log.e("mainLog-", "网络异常");
-                        break;
-                    case ErrorCode.NON_AD:
-                        Log.e("mainLog-", "暂无插屏广告");
-                        break;
-                    case ErrorCode.RESOURCE_NOT_READY:
-                        Log.e("mainLog-", "插屏资源还没准备好");
-                        break;
-                    case ErrorCode.SHOW_INTERVAL_LIMITED:
-                        Log.e("mainLog-", "请勿频繁展示");
-                        break;
-                    case ErrorCode.WIDGET_NOT_IN_VISIBILITY_STATE:
-                        Log.e("mainLog-", "请设置插屏为可见状态");
-                        break;
-                    default:
-                        Log.e("mainLog-", "请稍后再试");
-                        break;
-                }
-            }
-
-            @Override
-            public void onSpotClosed() {
-                Log.e("mainLog-", "插屏被关闭");
-            }
-
-            @Override
-            public void onSpotClicked(boolean isWebPage) {
-                Log.e("mainLog-", "插屏被点击");
-                Log.e("mainLog-", String.format("是否是网页广告？%s", isWebPage ? "是" : "不是"));
-            }
-        });
-
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -264,23 +206,11 @@ public class MainFragment extends BackHandledFragment {
     @Override
     public void onStop() {
         super.onStop();
-        // 插屏广告
-        SpotManager.getInstance(getContext()).onStop();
-        // 原生视频广告
-        VideoAdManager.getInstance(getContext()).onStop();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // 展示广告条窗口的 onDestroy() 回调方法中调用
-        BannerManager.getInstance(getContext()).onDestroy();
-
-        // 退出应用时调用，用于释放资源
-        // 如果无法保证应用主界面的 onDestroy() 方法被执行到，请移动以下接口到应用的退出逻辑里面调用
-
-        // 插屏广告（包括普通插屏广告、轮播插屏广告、原生插屏广告）
-        SpotManager.getInstance(getContext()).onAppExit();
     }
 
 }

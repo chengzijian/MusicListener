@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,7 @@ import android.widget.TextView;
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.android.zj.listener.ui.fragment.BackHandledFragment;
 import com.android.zj.listener.ui.fragment.BackHandledInterface;
-import com.android.zj.listener.ui.fragment.YouMiAdFragment;
+import com.android.zj.listener.ui.fragment.MyAdFragment;
 import com.bumptech.glide.Glide;
 import com.android.zj.listener.Constants;
 import com.android.zj.listener.listener.PanelSlideListener;
@@ -51,13 +50,6 @@ import com.android.zj.listener.RxBus;
 import com.android.zj.listener.event.MetaChangedEvent;
 import com.android.zj.listener.ui.fragment.MainFragment;
 import com.android.zj.listener.util.ATEUtil;
-
-import net.youmi.android.AdManager;
-import net.youmi.android.nm.cm.ErrorCode;
-import net.youmi.android.nm.sp.SpotManager;
-import net.youmi.android.nm.sp.SpotRequestListener;
-import net.youmi.android.nm.vdo.VideoAdManager;
-import net.youmi.android.nm.vdo.VideoAdSettings;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -111,7 +103,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             if (TextUtils.isEmpty(showTag)) {
                 fragment = MainFragment.newInstance(Constants.NAVIGATE_ALLSONG);
             } else {
-                fragment = YouMiAdFragment.newInstance();
+                fragment = MyAdFragment.newInstance();
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, fragment).commitAllowingStateLoss();
@@ -209,60 +201,11 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         }
     };
 
-    /**
-     * 预加载广告
-     */
-    private void preloadAd() {
-        // 注意：不必每次展示插播广告前都请求，只需在应用启动时请求一次
-        SpotManager.getInstance(this).requestSpot(new SpotRequestListener() {
-            @Override
-            public void onRequestSuccess() {
-                Log.e("" , "请求插播广告成功");
-            }
-
-            @Override
-            public void onRequestFailed(int errorCode) {
-                Log.e("" , "请求插播广告失败，errorCode: " + errorCode );
-                switch (errorCode) {
-                    case ErrorCode.NON_NETWORK:
-                        Log.e("" , "网络异常");
-                        break;
-                    case ErrorCode.NON_AD:
-                        Log.e("" , "暂无视频广告");
-                        break;
-                    default:
-                        Log.e("" , "请稍后再试");
-                        break;
-                }
-            }
-        });
-
-        // 设置插屏图片类型，默认竖图
-        // 横图
-        //SpotManager.getInstance(mContext).setImageType(SpotManager.IMAGE_TYPE_HORIZONTAL);
-        // 竖图
-        SpotManager.getInstance(this).setImageType(SpotManager.IMAGE_TYPE_VERTICAL);
-
-        // 设置动画类型，默认高级动画
-        //		// 无动画
-        //		SpotManager.getInstance(mContext).setAnimationType(SpotManager
-        //				.ANIMATION_TYPE_NONE);
-        //		// 简单动画
-        //		SpotManager.getInstance(mContext)
-        //		                    .setAnimationType(SpotManager.ANIMATION_TYPE_SIMPLE);
-        // 高级动画
-        SpotManager.getInstance(this).setAnimationType(SpotManager.ANIMATION_TYPE_ADVANCED);
-
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         action = getIntent().getAction();
         showTag = getIntent().getStringExtra("show_tag");
         isDarkTheme = ATEUtil.getATEKey(this).equals("dark_theme");
-
-        AdManager.getInstance(this).init("39deb76c34599d95", "3151b26a15bc4a5d", false);
-        preloadAd();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -315,8 +258,6 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         if (mPanelSlideListener != null) {
             RxBus.getInstance().unSubscribe(mPanelSlideListener);
         }
-        // 开屏展示界面的 onDestroy() 回调方法中调用
-        SpotManager.getInstance(this).onDestroy();
     }
 
     private void loadEverything() {
