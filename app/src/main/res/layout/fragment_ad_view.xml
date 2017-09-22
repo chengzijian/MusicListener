@@ -34,7 +34,7 @@
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="轮播插屏" />
+            android:text="插屏" />
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="横幅广告" />
+            android:text="清除缓存" />
 
         <Button
             android:id="@+id/button4"
