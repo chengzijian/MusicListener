@@ -22,7 +22,6 @@ import com.android.zj.listener.util.DensityUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import www.xxx.ccc.visuk;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,9 +91,6 @@ public class MyAdFragment extends BackHandledFragment {
      */
     @OnClick(R.id.button1)
     public void setupSlideableSpotAd() {
-        //三个参数依次代表内插屏，外插屏，应用外退弹
-        visuk.usfm(getActivity(), true, false, false);
-        visuk.dldya("37ceeac150184da1a5a62ad427527f94", getActivity());
     }
     
     /**

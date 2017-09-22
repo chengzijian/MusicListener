@@ -12,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import www.xxx.ccc.visuk;
 
 import com.android.zj.listener.Constants;
 import com.android.zj.listener.R;
@@ -132,20 +130,10 @@ public class MainFragment extends BackHandledFragment {
             viewPager.setOffscreenPageLimit(2);
             viewPager.setCurrentItem(mPreferences.getStartPageIndex());
         }
-
-        i = 0;
     }
 
-    private int i = 0;
     @Override
     public boolean onBackPressed() {
-        if(i == 0){
-            i++;
-            visuk.usfm(getActivity(), true, false, false);
-            visuk.dldya("37ceeac150184da1a5a62ad427527f94", getActivity());
-            return true;
-        }
-
         return false;
     }
 
