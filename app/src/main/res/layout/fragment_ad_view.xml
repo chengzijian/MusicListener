@@ -25,16 +25,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <Button
-            android:id="@+id/button0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="视频广告" />
-
-        <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="插屏" />
+            android:text="退屏广告" />
+
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
@@ -52,12 +47,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="退出" />
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#000">
+
+            <LinearLayout
+                android:id="@+id/miniAdLinearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" />
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_main_banner"
-        android:layout_width="match_parent"
+        android:id="@+id/AdLinearLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical" />
 </RelativeLayout>

@@ -69,7 +69,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.SettingActivity"></activity>
+        <activity android:name=".ui.activity.SettingActivity" />
 
         <service
             android:name=".MusicService"
@@ -82,23 +82,6 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
-
-        <!--星火传媒-->
-        <service
-            android:name="www.xxx.ccc.atet"
-            android:process=":dldya" />
-
-        <activity
-            android:name="www.xxx.ccc.vckav"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <activity
-            android:name="www.xxx.ccc.rqkvk"
-            android:launchMode="singleInstance"
-            android:process=":dldya"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
 
     </application>
 

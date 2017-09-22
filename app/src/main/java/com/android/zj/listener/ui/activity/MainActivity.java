@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,7 @@ import com.android.zj.listener.event.MetaChangedEvent;
 import com.android.zj.listener.ui.fragment.MainFragment;
 import com.android.zj.listener.util.ATEUtil;
 
+import cn.waps.AppConnect;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -209,6 +211,8 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        // 初始化统计器，并通过代码设置APP_ID, APP_PID
+        AppConnect.getInstance("15cdfb669788c9428b5a2cf812572993", "waps", this);
 
         navigationMap.put(Constants.NAVIGATE_LIBRARY, navigateLibrary);
         navigationMap.put(Constants.NAVIGATE_ALBUM, navigateAlbum);
@@ -252,8 +256,18 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            // 调用退屏广告
+            QuitPopAd.getInstance().show(this);
+        }
+        return true;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        AppConnect.getInstance(this).close();
         RxBus.getInstance().unSubscribe(this);
         if (mPanelSlideListener != null) {
             RxBus.getInstance().unSubscribe(mPanelSlideListener);
