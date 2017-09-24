@@ -78,9 +78,6 @@ public class MyAdFragment extends BackHandledFragment {
             int statusBarHeight = DensityUtil.getStatusBarHeight(getContext());
             Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
             toolbar.setPadding(0, statusBarHeight, 0, 0);
-            AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-            params.setScrollFlags(0);
-            toolbar.setLayoutParams(params);
         }
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);

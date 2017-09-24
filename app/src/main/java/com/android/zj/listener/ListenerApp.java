@@ -24,6 +24,8 @@ import com.android.zj.listener.injector.module.NetworkModule;
 import com.android.zj.listener.mvp.model.Song;
 import com.android.zj.listener.permission.PermissionManager;
 import com.android.zj.listener.util.ListenerUtil;
+
+import cn.waps.AppConnect;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
