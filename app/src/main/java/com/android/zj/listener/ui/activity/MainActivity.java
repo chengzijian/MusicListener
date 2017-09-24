@@ -22,9 +22,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
+import com.android.zj.listener.ui.activity.ads.DemoApp;
+import com.android.zj.listener.ui.activity.ads.ym.SplashActivity;
 import com.android.zj.listener.ui.fragment.BackHandledFragment;
 import com.android.zj.listener.ui.fragment.BackHandledInterface;
-import com.android.zj.listener.ui.fragment.MyAdFragment;
 import com.bumptech.glide.Glide;
 import com.android.zj.listener.Constants;
 import com.android.zj.listener.listener.PanelSlideListener;
@@ -51,6 +52,8 @@ import com.android.zj.listener.RxBus;
 import com.android.zj.listener.event.MetaChangedEvent;
 import com.android.zj.listener.ui.fragment.MainFragment;
 import com.android.zj.listener.util.ATEUtil;
+
+import net.youmi.android.AdManager;
 
 import cn.waps.AppConnect;
 import rx.Subscription;
@@ -90,7 +93,6 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
         }
     };
 
-    private String showTag;
     private BackHandledFragment mBackHandedFragment;
 
     @Override
@@ -101,12 +103,7 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     private Runnable navigateLibrary = new Runnable() {
         public void run() {
             navigationView.getMenu().findItem(R.id.nav_library).setChecked(true);
-            Fragment fragment;
-            if (TextUtils.isEmpty(showTag)) {
-                fragment = MainFragment.newInstance(Constants.NAVIGATE_ALLSONG);
-            } else {
-                fragment = MyAdFragment.newInstance();
-            }
+            Fragment fragment = MainFragment.newInstance(Constants.NAVIGATE_ALLSONG);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, fragment).commitAllowingStateLoss();
 
@@ -206,13 +203,15 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
     @Override
     public void onCreate(Bundle savedInstanceState) {
         action = getIntent().getAction();
-        showTag = getIntent().getStringExtra("show_tag");
         isDarkTheme = ATEUtil.getATEKey(this).equals("dark_theme");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         // 初始化统计器，并通过代码设置APP_ID, APP_PID
         AppConnect.getInstance("15cdfb669788c9428b5a2cf812572993", "waps", this);
+
+        //初始化SDK
+        AdManager.getInstance(this).init("39deb76c34599d95", "3151b26a15bc4a5d", false);
 
         navigationMap.put(Constants.NAVIGATE_LIBRARY, navigateLibrary);
         navigationMap.put(Constants.NAVIGATE_ALBUM, navigateAlbum);
@@ -252,7 +251,6 @@ public class MainActivity extends BaseActivity implements ATEActivityThemeCustom
             }, 350);
         }
         subscribeMetaChangedEvent();
-
     }
 
     @Override
