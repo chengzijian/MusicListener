@@ -106,4 +106,36 @@
     <string name="remove_recentlyplay_success">Delete Song From Recentyl Play Success</string>
     <string name="color">Color</string>
     <string name="sure">Sure</string>
+
+    <!--主窗口-->
+    <string name="tv_main_top_tag" >有米</string >
+    <string name="tv_main_version_info" >AOS SDK V</string >
+    <string name="btn_main_show_spot_ad" >插屏广告演示</string >
+    <string name="btn_main_show_slideable_spot_ad" >轮播插屏广告演示</string >
+    <string name="btn_main_show_native_spot_ad" >原生插屏广告演示</string >
+    <string name="btn_main_show_video_ad" >视频广告演示</string >
+    <string name="btn_main_show_native_video_ad" >原生视频广告演示</string >
+    <string name="btn_main_check_ad_settings" >检查广告配置</string >
+    <string name="tv_main_bottom_tag" >Powered by YouMi</string >
+
+    <!--各种广告形式窗口展示按钮-->
+    <string name="btn_show_spot_ad" >展示插屏广告</string >
+    <string name="btn_show_slideable_spot_ad" >展示轮播插屏广告</string >
+    <string name="btn_show_native_spot_ad" >展示原生插屏广告</string >
+    <string name="btn_show_video_ad" >展示视频广告</string >
+    <string name="btn_show_native_video_ad" >展示原生视频广告</string >
+
+    <string name="offerList">积分墙</string>
+    <string name="popAd">插屏广告</string>
+    <string name="shareOfferList">分享广告</string>
+    <string name="gameOfferList">游戏列表</string>
+    <string name="appOfferList">软件列表</string>
+    <string name="spendPoints">消费积分(-10)</string>
+    <string name="awardPoints">奖励积分(+10)</string>
+    <string name="feedback">用户反馈</string>
+    <string name="moreApps">自家应用(列表)</string>
+    <string name="ownAppDetail">自家应用(单条)</string>
+    <string name="diyAd">自定义广告(单条)</string>
+    <string name="diyAdList">自定义广告(列表)</string>
+    <string name="checkUpdate">检查新版本</string>
 </resources>

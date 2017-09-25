@@ -22,9 +22,6 @@
         android:launchMode="singleTask"
         android:supportsRtl="true"
         android:theme="@style/AppThemeLight">
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
         <activity
             android:name=".ui.activity.ads.DemoApp"
             android:configChanges="keyboardHidden|orientation"

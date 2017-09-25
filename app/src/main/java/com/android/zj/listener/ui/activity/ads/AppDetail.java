@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.zj.listener.R;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -103,7 +105,7 @@ public class AppDetail {
 
                 LinearLayout layout = new LinearLayout(context);
                 layout.setGravity(Gravity.CENTER);
-                layout.setId(1);
+                layout.setId(R.id.access_point);
 
                 // 对小屏手机进行屏幕判断
                 int displaySize = SDKUtils.getDisplaySize(context);
