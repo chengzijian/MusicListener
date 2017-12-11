@@ -20,8 +20,8 @@
 -keep class com.squareup.okhttp.** { *; }
 -keep class retrofit2.** { *; }
 -keep interface com.squareup.okhttp.** { *; }
--keep class com.android.zj.listener.api.model.** { *; }
--keep class com.android.zj.listener.mvp.model.** { *; }
+-keep class com.android.tn.listener.api.model.** { *; }
+-keep class com.android.tn.listener.mvp.model.** { *; }
 
 -keep class android.support.v4.app.** { *; }
 -keep interface android.support.v4.app.** { *; }

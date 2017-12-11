@@ -23,7 +23,7 @@
         app:popupTheme="?ttPopupMenuStyle"
         android:tag="bg_primary_color"/>
 
-    <com.android.zj.listener.widget.fastscroller.FastScrollRecyclerView
+    <com.android.tn.listener.widget.fastscroller.FastScrollRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

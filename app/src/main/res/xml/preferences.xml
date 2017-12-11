@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.android.zj.listener.widget.ThemedPreferenceCategory android:title="@string/color">
+    <com.android.tn.listener.widget.ThemedPreferenceCategory android:title="@string/color">
 
         <com.afollestad.appthemeengine.prefs.ATEColorPreference
             android:key="primary_color"
@@ -20,6 +20,6 @@
             android:widgetLayout="@layout/ate_preference_checkbox"
             app:ateKey_pref_checkBox="?ate_key" />
 
-    </com.android.zj.listener.widget.ThemedPreferenceCategory>
+    </com.android.tn.listener.widget.ThemedPreferenceCategory>
 
 </PreferenceScreen>
