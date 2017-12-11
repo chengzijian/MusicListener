@@ -25,6 +25,7 @@
         <activity
             android:name=".ui.activity.ads.DemoApp"
             android:configChanges="keyboardHidden|orientation"
+            android:launchMode="singleTask"
             android:label="@string/app_name" />
 
         <activity
